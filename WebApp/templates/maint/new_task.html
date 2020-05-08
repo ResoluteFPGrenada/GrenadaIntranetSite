@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }} </legend>
+
+					<!-- name -->
+				<div class="form-group">
+					{{ form.name.label(class="form-control-label") }}
+					{% if form.name.errors %}
+						{{ form.name(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.name.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.name(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- item -->
+				<div class="form-group">
+					{{ form.item.label(class="form-control-label") }}
+					{% if form.item.errors %}
+						{{ form.item(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.item.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.item(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- DateDue -->
+				<div class="form-group">
+					{{ form.DateDue.label(class="form-control-label") }}
+					{% if form.DateDue.errors %}
+						{{ form.DateDue(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.DateDue.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.DateDue(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- frequencyNumber -->
+				<div class="form-group">
+					{{ form.frequencyNumber.label(class="form-control-label") }}
+					{% if form.frequencyNumber.errors %}
+						{{ form.frequencyNumber(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.frequencyNumber.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.frequencyNumber(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- frequencyFormat -->
+				<div class="form-group">
+					{{ form.frequencyFormat.label(class="form-control-label") }}
+					{% if form.frequencyFormat.errors %}
+						{{ form.frequencyFormat(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.frequencyFormat.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.frequencyFormat(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+			
+		</form>
+	</div>
+{% endblock content %}

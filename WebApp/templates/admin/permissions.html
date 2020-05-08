@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> Update Permissions</legend>
+
+				<!-- USERNAME -->
+				
+			<div class="form-group">
+					{{ form.username.label(class="form-control-label") }}
+
+					{% if form.username.errors %}
+						{{ form.username(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.username.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.username(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+					<!-- ROLES -->
+					
+			<div class="form-group">
+					{{ form.roles.label(class="form-control-label") }}
+
+					{% if form.roles.errors %}
+						{{ form.roles(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.roles.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.roles(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+			
+					<!-- ASSIGNED -->
+					
+			<div class="form-group">
+					{{ form.assigned.label(class="form-control-label") }}
+
+					{% if form.assigned.errors %}
+						{{ form.assigned(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.assigned.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.assigned(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+			</fieldset>
+
+				<!-- Submit -->
+			<div class="form-group">
+					{{ form.submit(class="btn btn-outline-info") }}
+				</div>
+				
+				<!-- Reset Password -->
+			<small class="text-muted ml-2">
+				<a id="btnResetPassword" href="#" class="btn btn-info btn-sm">Reset Password</a>
+			</small>
+			
+			<!-- Delete User-->
+			<small class="text-muted ml-2">
+				<a id="btnDeleteUser" href="#" class="btn btn-danger btn-sm">Delete User</a>
+			</small>
+		</form>
+			
+</div>
+
+	
+	
+	
+	<script type='text/javascript'>
+			
+		
+	
+	
+			// Update select options
+		let username_select = document.getElementById('username');
+		let roles_select = document.getElementById('roles');
+		let assigned_select = document.getElementById('assigned');
+		let Reset_button = document.getElementById('btnResetPassword');
+		let Delete_button = document.getElementById('btnDeleteUser');
+		
+		username_select.onchange = function(){
+			username_id = username_select.value;
+			Reset_button.href = '/admin/reset_password/'+ username_id;
+			Delete_button.href = '/admin/delete_user/' + username_id;
+			
+			fetch('/permissions_user/' + username_id).then(function(response){
+				response.json().then(function(data){
+					
+					var optionHTML = '';
+					var optionHTML2 = '';
+					
+					var rights = data[0];
+					for (var i=0; i < rights.length; i++){
+							try {var rightGroup = rights[i].group;
+							}catch(err){
+								rightGroup = null;
+							}
+							try {var rightId = rights[i].id;
+							}catch(err){
+								rightId = null;
+							}
+							if (rightGroup == null){
+								
+							}else{
+								optionHTML += '<option value="'+ rightId+ '">'+ rightGroup + '</option>';
+							}
+					}
+					assigned_select.innerHTML = optionHTML;
+
+					var availables = data[1];
+					for (var i=0; i< availables.length; i++){
+							try {var availableGroup = availables[i].group;
+							}catch(err){
+								availableGroup = null;
+							}
+							try {var availableId = availables[i].id;
+							}catch(err){
+								availableId = null
+							}
+							if (availableGroup == null){
+								
+							}else{
+								optionHTML2 += '<option value="'+ availableId + '">'+ availableGroup + '</option>';
+							}
+					}
+					roles_select.innerHTML = optionHTML2;
+				});
+			});
+		}
+		
+			// on submit select all options for each multiselect box.
+		let submit_btn = document.getElementById('submit');
+		submit_btn.onclick = function (){
+			for (var i=0; i< roles_select.options.length; i++){
+				roles_select.options[i].selected = true;
+			}
+			for (var i=0; i< assigned_select.options.length; i++){
+				assigned_select.options[i].selected = true;
+			}
+		}
+		
+			// double click event to move option to other select box.
+		roles_select.ondblclick = function (){
+			let selItem = roles_select.selectedIndex;
+			let replaceItem = roles_select[selItem].cloneNode(true);
+			roles_select.removeChild(roles_select[selItem]);
+			assigned_select.appendChild(replaceItem);
+		}
+		
+		assigned_select.ondblclick = function (){
+			let selItem2 = assigned_select.selectedIndex;
+			let replaceItem2 = assigned_select[selItem2].cloneNode(true);
+			assigned_select.removeChild(assigned_select[selItem2]);
+			roles_select.appendChild(replaceItem2);
+		}
+	
+	</script>
+	
+
+{% endblock content %}

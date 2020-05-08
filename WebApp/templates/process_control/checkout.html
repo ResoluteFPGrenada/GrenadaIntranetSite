@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>Process Control Inventory - Checkout</h1>
+	
+		<!--Items found-->
+		<div class="container">
+			<div class="main">
+				
+				<div class="row">
+					<div class="col-md-4">
+						<h3><strong>Item Name</strong></h3>
+					</div>
+					<div class="col-md-4">
+						<h3><strong>Total In Stock</strong></h3>
+					</div>
+					<div class="col-md-4">
+						<h3><strong>Quantity Selected</strong></h3>
+					</div>
+				</div>
+				{% for item in items %}
+				<div class="row">
+					<div class="col-md-4">
+						<h3>{{item.itemName}}</h3>
+					</div>
+					<div class="col-md-4 stockQuantity">
+						<h3>{{item.quantity}}</h3>
+					</div>
+					<div class="col-md-4 itemQuantity">
+						<span><a href="#" class="btn btn-info btn-sm quantitySub">-</a></span>
+						<span id="quantity{{item.id}}" class="quantity">0</span>
+						<span><a href="#" class="btn btn-info btn-sm quantityAdd">+</a></span>
+					</div>
+				</div>
+				
+				<br />
+				{% endfor %}
+			</div>
+			<!--Complete Checkout-->
+			<hr />
+			<a class="btn btn-primary float-right" id="btnCompleteCheckout" href="#">Checkout</a>
+		</div>
+		
+		<script src="{{ url_for('static', filename='inventoryCheckout.js') }}"></script>
+
+
+{% endblock content %}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+	
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='popper/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+
+    {% if title %}
+        <title>Web App - {{ title }}</title>
+    {% else %}
+        <title>Web App</title>
+    {% endif %}
+</head>
+<body>
+		{# get permissions into template #}
+	{% set devops = namespace(rights=false) %}
+	{% set production = namespace(rights=false) %}
+	{% set procCtrl = namespace(rights=false) %}
+	{% set maint = namespace(rights=false) %}
+	{% set maintAdmin = namespace(rights=false) %}
+	
+	{% for right in current_user.rights %}
+	
+		{% if right.group == "DevOps"%}
+			{% set devops.rights = true %}
+		{% endif %}
+		
+		{% if right.group == "Production" %}
+			{% set production.rights = true %}
+		{% endif %}
+		
+		{% if right.group == "ProcessControl" %}
+			{% set procCtrl.rights = true %}
+		{% endif %}
+		
+		{% if right.group == "Maintenance" %}
+			{% set maint.rights = true %}
+		{% endif %}
+		{% if right.group == "MaintAdmin" %}
+			{% set maintAdmin.rights = true %}
+		{% endif %}
+		
+	{% endfor %}
+	
+	
+	
+    <header class="site-header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top pre-scrollable">
+				<!--Brand-->
+			<a class="navbar-brand mr-4" href="#"><img alt="Brand" src="{{ url_for('static', filename='Resolute_Icon.jpg') }}" class="img-fluid" /></a>
+			
+				<!-- Toggler -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse my-nav" id="navbarToggle">
+				<div class="container">
+					<div class="navbar-nav mr-auto">
+							<a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home | </a>
+						<!-- ADMIN -->
+					{% if current_user.is_authenticated %}
+							{% if current_user.is_admin %}
+								<div class="dropdown">
+									<a class="nav-item nav-link" id="navbarDropdownAdmin" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin | </a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+									
+											<a class="nav-item nav-link dropdown-toggle" id="navbarDropdownCM" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credential Manager</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdownCM">
+												<a class="nav-link" href="{{ url_for('admin.roles') }}">Roles</a>
+												<a class="nav-link" href="{{ url_for('admin.register') }}">Register</a>
+												<a class="nav-link" href="{{ url_for('admin.permissions') }}">Permissions</a>
+											</div>
+									</div>
+								</div>
+							{% endif %}
+							
+							<!-- DEV OPS -->
+							{% if devops.rights or current_user.is_admin %}
+								<div class="dropdown">
+									<a class=" nav-item nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" href="#"><span class="nav-label">Dev Ops | </span></a>
+									<div class="dropdown-menu">
+										<a class="nav-item nav-link" href="{{ url_for('dev_ops.api_new') }}">New API</a>
+										<a class="nav-item nav-link" href="{{ url_for('dev_ops.api') }}">API</a>
+									</div>
+								</div>
+							{% endif %}
+							
+							<!-- PRODUCTION -->
+						{% endif %}
+						
+						<div class="dropdown">
+							<a class=" nav-item nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" href="#">Production | </a>
+							<div class="dropdown-menu">
+								{% if current_user.is_authenticated or current_user.is_admin %}
+								<!--<a class="nav-item nav-link" href="{{ url_for('production.kpi') }}">KPI</a>
+								<a class="nav-item nav-link" href="{{ url_for('production.kpi_new') }}">New KPI</a>-->
+								<a class="nav-item nav-link" href="{{ url_for('production.mill_log') }}">Mill Log</a>
+								<!--<a class="nav-item nav-link" href="{{ url_for('production.rcpe') }}">RCPE</a>
+								<a class="nav-item nav-link" href="{{ url_for('production.rcpe_new') }}">New RCPE</a>
+								<a class="nav-item nav-link" href="{{ url_for('production.action_items') }}">Action Items</a>-->
+								{% endif %}
+								<a class="nav-item nav-link" href="{{ url_for('production.ae_comments') }}">AE Comments</a>
+							</div>
+						</div>
+							
+						{% if current_user.is_authenticated %}	
+							<!-- INFORMATION TECHNOLOGY -->
+							
+							<!-- PROCESS CONTROL -->
+							{% if procCtrl.rights or current_user.is_admin %}
+								<div class="dropdown">
+									<a class=" nav-item nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" href="#"><span class="nav-label">Process Control | </span></a>
+									<div class="dropdown-menu">
+										<a class="nav-item nav-link" href="{{ url_for('process_control.inventory_pc') }}">PC Inventory</a>
+									</div>
+								</div>
+							{% endif %}	
+							
+							<!-- MAINTENANCE -->
+							{% if maint.rights or maintAdmin.rights or current_user.is_admin %}
+								<div class="dropdown">
+									<a class="nav-item nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" href="#"><span class="nav-label">Maintenance | </span></a>
+									<div class="dropdown-menu">
+										<a class="nav-item nav-link" href="{{ url_for('maint.task_manage') }}">Task Manager</a>
+										<a class="nav-item nav-link" href="{{ url_for('maint.personnel_training') }}">Personnel Training</a>
+									</div>
+								</div>
+							{% endif %}
+							
+						{% endif %}
+					</div>
+				</div>
+			
+				<!-- Navbar Right Side -->
+				<div class="navbar-nav">
+					<div class="navbar-nav mr-auto">
+					
+							<!-- USERS -->
+						{% if current_user.is_authenticated %}
+							<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account | </a>
+							<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout </a>
+						{% else %}
+							<a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+      </nav>
+    </header>
+    <main role="main">
+      <div class="row">
+        <div class="col-md-12 pt-2">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+						<div class="alert alert-{{ category }}">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		{% block content %}{% endblock %}
+        </div>
+        
+      </div>
+	  <!--
+	  <div class="col-md-4 float-right">
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+		  
+        </div>-->
+    </main>
+
+
+    <!-- Optional JavaScript -->
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }}</legend>
+
+					<!-- Data Type -->
+				<div class="form-group">
+					{{ form.dataType.label(class="form-control-label") }}
+					{% if form.dataType.errors %}
+						{{ form.dataType(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.dataType.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.dataType(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- Data File Location -->
+				<div class="form-group">
+					{{ form.dataFileLocation.label(class="form-control-label") }}
+					{% if form.dataFileLocation.errors %}
+						{{ form.dataFileLocation(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.dataFileLocation.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.dataFileLocation(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+			</fieldset>
+			
+				<!-- Submit -->
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+		</form>
+	</div>
+
+{% endblock content %}

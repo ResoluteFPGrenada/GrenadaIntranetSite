@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>Process Control Inventory</h1>
+	<a class="btn btn-outline-primary btn-sm" href="{{url_for('process_control.inventory_pc_questionare')}}">New Item</a>
+	<hr />
+	
+	<!--Search-->
+	<input type="text" id="txtId" placeholder="Search..." />
+	<button class="btn btn-outline-info btn-md btnSearch">search</button>
+	
+	
+
+		<!--Side bar-->
+		<div class="sidenav">
+			<h3>Filter</h3>
+			<br />
+			<div class="sidenav-content">
+				<h5><strong>Manufacturer</strong></h5>
+				<hr />
+				
+				<ul id="manList" class="form-check">
+					{% for man in manufacturers %}
+					<li><input type="checkbox" class="form-check-input" id="Man{{loop.index}}" value="" checked />{{man}}</li>
+					{% endfor %}
+				</ul>
+				<br />
+				
+				<h5><strong>Model</strong></h5>
+				<hr />
+				<ul id="modList" class="form-check">
+					{% for mod in models %}
+					<li><input type="checkbox" class="form-check-input" id="Mod{{loop.index}}" checked />{{ mod }}</li>
+					{% endfor %}
+				</ul>
+				<br />
+				
+				<h5><strong>Category</strong></h5>
+				<hr />
+				<ul id="catList" class="form-check">
+					{% for cat in categories %}
+					<li><input type="checkbox" class="form-check-input" id="Cat{{loop.index}}" checked />{{ cat }}</li>
+					{% endfor %}
+				</ul>
+				<br />
+				
+				<h5><strong>Reference Item</strong></h5>
+				<hr />
+				<ul id="refList" class="form-check">
+					{% for ref in ref_items %}
+					<li><input type="checkbox" class="form-check-input" id="Ref{{loop.index}}" checked />{{ref}}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<button id="btnFilter" class="btn btn-info btn-sm m-4">Apply Filter</button>
+		</div>
+		
+	
+		<!--Items found-->
+		<div class="container">
+			<div class="main item-section">
+				{% for item in inventory %}
+				<div class="divItems">
+					<div class="row">
+						<div class="col-md-2">
+							<a href="{{url_for('process_control.inventory_display_image', item_id = item.id)}}"><img class="itemImage" src="{{ url_for('static', filename='InventoryPics/' + item.image) }}" /></a>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-sm-12">
+									<h3 class="itemName"><a class="float-center" href="{{url_for('process_control.inventory_details', item_id = item.id)}}">{{ item.itemName }}</a></h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<h5 class="itemManufacturer">{{item.manufacturer}}</h5>
+								</div>
+								<div class="col-sm-4">
+									<h5 class="itemModel">{{item.model}}</h5>
+								</div>
+								<div class="col-sm-4">
+									<h5><strong>{{item.quantity}} in stock</strong></h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<h5 class="itemCategory">{{item.category}}</h5>
+								</div>
+								<div class="col-md-4">
+									<h5 class="itemRef">{{item.refItem}}</h5>
+								</div>
+								<div class="col-md-4">
+									<h5 class="itemLastCost">${{ item.LastCost }} per unit</h5>
+								</div>
+							</div>
+							<div class="row">
+								<!--Serial Number, Details Part Number, Location Id, SAP Id, lastCost, vendor-->
+								<div class="col-md-2">
+									<h5 class="itemSN">{{item.serialNumber}}</h5>
+								</div>
+								<div class="col-md-2">
+									<h5 class="itemPN">{{item.partNumber}}</h5>
+								</div>
+								<div class="col-md-2">
+									<h5 class="itemLocationId">{{item.locationId}}</h5>
+								</div>
+								<div class="col-md-2">
+									<h5 class="itemSapId">{{item.SapId}}</h5>
+								</div>
+								<div class="col-md-2">
+									<h5 class="itemDetails">{{item.details}}</h5>
+								</div>
+								<div class="col-md-2">
+									<h5 class="itemVendor">{{item.vendor}}</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							{% if item.id in cart | map(attribute='inventoryId')%}
+							<a href="{{url_for('process_control.inventory_cart_remove', item_id = item.id)}}" class="btn btn-danger btn-md cartlink">Remove From Cart</a>
+							{% else %}
+							<a href="{{url_for('process_control.inventory_cart', item_id = item.id)}}" class="btn btn-info btn-md cartlink">Add To Cart</a>
+							{% endif %}
+						</div>
+						
+					</div>
+					<br />
+					<br />
+				</div>
+				
+				{% endfor %}
+			</div>
+			
+			<hr />
+			<!-- Pagination -->
+			<div><ul class="pagination"></ul></div>
+			
+			<!--Go To Checkout-->
+			<a class="btn btn-primary float-right" href="{{url_for('process_control.inventory_cart_checkout')}}">Go To Checkout</a>
+		</div>
+
+	
+	<script src="{{ url_for('static', filename='inventory.js') }}"></script>
+	
+
+{% endblock content %}

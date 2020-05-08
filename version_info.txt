@@ -1,0 +1,138 @@
+Current Version 1.85 DATE RELEASED: ???:
+- Fixed styling on Process control inventory sidebar. 
+
+-  
+
+1.80 DATE RELEASED: 11/12/2019:
+- Added Process Control Inventory system to site under Process Control section of site.
+
+- FOUND BUGS:
+	- Mill Log: Logs on both Mill log page and daily report order by date but times are not in order.
+
+- FEATURE REQUESTED:
+	- Bulletin Board WebApp allows a live board that can be updated. Show issues at mill that need emergency attention.
+
+	- Capture Data from different databases and visualize them in a dashboard.
+
+	- Dashboard for home page once logged in.
+
+	- Posts site for important messages to the mill.
+
+	- Found It site for internal search engine.
+
+ 1.76 DATE RELEASED: 9/10/2019:
+- fixed bug where if ... is copied from Microsoft Word the Mill log would fail when sending out a daily report.
+ 
+
+ 1.75 DATE RELEASED: 8/20/2019:
+- Fixed bug when entering new mill log on error, form was wiped clean.
+
+- Fixed error message on mill log entering data error on location.
+
+- added pagination to Mill Log settings for 100 logs per page.
+
+- Added multi-search functionality and the ablility to search from/to both date and time.
+
+- Moved all databases to same location in prep for next feature of autoscript for backups to E:
+
+- Users can now update their own logs. Admins and super users can make changes without changing the orginal user.
+
+- Changed time from 12:02AM to 06:02AM for Daily Reports for Mill Logs to be emailed out. This means that all logs for the current morning should be entered before 06:02AM.
+
+- Added Requirements.txt file to root project folder for web server dependencies.
+
+- FOUND BUGS:
+	
+	- Mill Log: While entering a new log if submit while some required form inputs are blank, values are all wiped clean.
+
+	- Mill Log: during entering a log without entering a location error message is both spelled wrong and not formatted.
+
+- FEATURE REQUESTED:
+	
+	- Bulletin Board WebApp allows a live board that can be updated. Shows issues at mill that need emergency attention.
+
+
+ 1.50 DATE RELEASED: 7/1/2019:
+- Added logs from old Mill Log from 6/21/2019 - 7/1/2019
+
+- Added reporting for daily report.
+
+- Added user documentation into the site for reset password and quick Mill Log user guide.
+
+- Added most users to Mill Log.
+
+- Went Live with Mill Log on 7/2/2019 
+
+- FEATURE REQUESTED:
+	- on entering new log. Make date and time autoselect.
+
+	- multiple searches for main mill log page.
+
+	- Only allow user to update their own log. Admins and super users can do this without changing username
+
+
+version 1.20 DATE RELEASED: 6/24/2019:
+
+- Added Mill Log to intranet site. Imported all data from older Mill Log application. As of 6/21/2019
+
+- Added ability to reset passwords as admin.
+
+- Added fixed issues with quote marks in Mill Log.
+
+- Added Mill Log daily reports... Can be ran via Task Scheduler connected to Reports.ps1
+
+- Created Credentials for each user that uses Mill Log. Using Mill Log will require them to login. 
+
+- Gave Users the ability to Read, Search, and Update logs. Administrators and Production credentials can also delete.
+
+
+version 1.10: 
+- Added AE Comments form app. These comments are sent to an email to be reviewed and submitted into AE Report in SAP.
+
+- Introduction of Lube Route Task Manager. Added credential groups for maintAdmin and maintenance. Refactored code to be more clearly understood.
+
+version 0.75:
+- Setup email functionality for resetting passwords. If user has a login and clicks the forget password link. A reset link with a timed token will be sent to the user's email to reset password. The time allowed for response is 1800 seconds
+
+- Sorted groups and links on home page to allow for a more structured way to organize and navigate the links.
+
+version 0.55:
+- Production version aimed to fix slugish serving of the Intranet Site.
+
+- Issue 1
+	- Issue addressed:
+		- Takes a long time to if multiple users are accessing the intranet site.
+
+	- Explanation:
+		- Currently Site is using development web serving tool to run. It is not able to hold up against multiple servings well.
+
+	- Fix
+		- Implement Waitress Web Serving tool. This should make a signficate difference in speed and reliablilty. 
+		- Awaiting futher testing.
+
+version 0.50:
+
+- First Beta Production version of Grenada Intranet Site using Python Flask.
+
+
+version 0.10:
+
+- First test implementation of Grenada Intranet Site using Python Flask.
+
+- This version is used to replace current intranet site that sits on a older server and is run by older software.
+
+- This version uses modern web technology to achieve the same goals as the previous site.
+
+- Functionality of this site is:
+	- current to have a home page for every user in the domain to access.
+
+	- Login feature was also added to allow admins to add users, permissions, roles, and add/change/delete links.
+
+
+Future Implementations include:
+	- Process Control logins, inventories, network overview, ect.
+
+	- Databases and interfaces for RCPEs, Bad Actors, shutdown schedules, tasks, ect.
+
+	- Retrieve SAP, PI, Access, SQL database data and view.
+

@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }} </legend>
+
+					<!-- date -->
+				<div class="form-group">
+					{{ form.date.label(class="form-control-label") }}
+					{% if form.date.errors %}
+						{{ form.date(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.date.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.date(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- time -->
+				<div class="form-group">
+					{{ form.time.label(class="form-control-label") }}
+					{% if form.time.errors %}
+						{{ form.time(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.time.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.time(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- supervisor -->
+				<div class="form-group">
+					{{ form.supervisor.label(class="form-control-label") }}
+					{% if form.supervisor.errors %}
+						{{ form.supervisor(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.supervisor.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.supervisor(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- e_location -->
+				<div class="form-group">
+					{{ form.e_location.label(class="form-control-label") }}
+					{% if form.e_location.errors %}
+						{{ form.e_location(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.e_location.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.e_location(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- e_type -->
+				<div class="form-group">
+					{{ form.e_type.label(class="form-control-label") }}
+					{% if form.e_type.errors %}
+						{{ form.e_type(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.e_type.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.e_type(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- comment -->
+				<div class="form-group">
+					{{ form.comment.label(class="form-control-label") }}
+					{% if form.comment.errors %}
+						{{ form.comment(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.comment.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.comment(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+				
+			</fieldset>
+				<!-- submit -->
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+			
+		</form>
+		
+		
+	</div>
+{% endblock content %}

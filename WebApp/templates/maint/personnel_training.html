@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block content %}
+<script src="{{ url_for('static', filename='maint/personnelTraining.js') }}"></script>
+
+	<div class="container">
+		<h1>Personnel Training</h1>
+		<hr />
+		
+		<!-- Information -->
+		<div class="container">
+			<h3>Information</h3>
+			<hr />
+			
+			<form>
+			<select class="form-control" id="dropPerson">
+				<option>Test 1</option>
+				<option>Test 2</option>
+			</select>
+			</form>
+			<br />
+		
+			<div class="row">
+				<div class="col-md-6">
+					<h5><strong>Years employeed:</strong> <span id="spanYearsEmployeed"></span></h5>
+				</div>
+				
+				<div class="col-md-6">
+					<h5><strong>Department:</strong> <span id="spanDepartment"></span></h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h5><strong>Pay Grade:</strong> <span id="spanPayGrade"></span></h5>
+				</div>
+				
+				<div class="col-md-6">
+					<h5><strong>Position:</strong> <span id="spanPosition"></span></h5>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Training -->
+		<div class="container">
+			<h3>Training</h3>
+			<hr />
+			<div class="table-responsive">
+				<table class="table table-dark table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date To Expire</th>
+							<th>Description</th>
+							{%if current_user.is_admin %}
+							<th>Update</th>
+							<th>Delete</th>
+							{%endif%}
+						</tr>
+					</thead>
+					<tbody id="tblTraining"></tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- Licensing -->
+		<div class="container">
+			<h3>Licensing</h3>
+			<hr />
+			<div class="table-responsive">
+				<table class="table table-dark table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date Obtained</th>
+							<th>Description</th>
+							{%if current_user.is_admin %}
+							<th>Update</th>
+							<th>Delete</th>
+							{%endif%}
+						</tr>
+					</thead>
+					<tbody id="tblLicensing"></tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+{% endblock content%}

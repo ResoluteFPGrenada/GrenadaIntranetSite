@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>Process Control Inventory - Details - {{ item.itemName }}</h1>
+	
+	<br />
+	<a href="{{url_for('process_control.inventory_display_image', item_id = item.id)}}"><img src="{{url_for('static', filename='InventoryPics/'+ item.image)}}"></a>
+	
+	<hr />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 ">
+					<h4><strong>Manufacturer:</strong> {{item.manufacturer}}</h4>
+					<h4><strong>Model:</strong> {{item.model}}</h4>
+					<h4><strong>Part Number:</strong> {{ item.partNumber }}</h4>
+					<h4><strong>Serial Number:</strong> {{ item.serialNumber }}</h4>
+					<h4><strong>Category:</strong> {{ item.category }}</h4>
+				</div>
+				<div class="col-md-6 ">
+					<h4><strong>In Stock:</strong> {{ item.quantity }}</h4>
+					<h4><strong>Reference Item:</strong> {{ item.refItem }}</h4>
+					<h4><strong>Vendor:</strong> {{ item.vendor }}</h4>
+					<h4><strong>SAP ID:</strong> {{ item.SapId }}</h4>
+					<h4><strong>Last Purchase Cost:</strong> ${{ item.LastCost }} per unit</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<h4><strong>Details:</strong></h4>
+					<h4>{{item.details}}</h4>
+				</div>
+			</div>
+		</div>
+		<hr />
+		{% if item.id in cart | map(attribute= 'inventoryId') %}
+		<a href="{{url_for('process_control.inventory_cart_remove', item_id = item.id)}}" class="btn btn-danger btn-md ">Remove From Cart</a><br /><br />
+		{%else%}
+		<a href="{{url_for('process_control.inventory_cart', item_id = item.id)}}" class="btn btn-info btn-md ">Add To Cart</a><br /><br />
+		{% endif %}
+		<a href="{{url_for('process_control.inventory_pc_update', item_id = item.id)}}" class="btn btn-secondary btn-md ">Update</a><br /><br />
+		<!--<a href="#" class="btn btn-danger btn-md ">Delete</a><br /><br />-->
+		<button type="button" class="btn btn-danger btn-md m-1" data-toggle="modal" data-target="#deleteModal{{item.id}}">Delete</button>
+		
+			<!--Delete Item Modal-->
+		<div class="modal fade" id="deleteModal{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModallabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="header">
+							<h5 class="modal-title" id="deleteModallabel{{item.id}}">Delete Link</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<form action="{{ url_for('process_control.inventory_pc_delete', item_id=item.id) }}" method="POST">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+{% endblock content %}

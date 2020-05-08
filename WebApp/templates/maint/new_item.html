@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }} </legend>
+
+					<!-- name -->
+				<div class="form-group">
+					{{ form.name.label(class="form-control-label") }}
+					{% if form.name.errors %}
+						{{ form.name(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.name.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.name(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- lubricant -->
+				<div class="form-group">
+					{{ form.lubricant.label(class="form-control-label") }}
+					{% if form.lubricant.errors %}
+						{{ form.lubricant(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.lubricant.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.lubricant(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- points -->
+				<div class="form-group">
+					{{ form.points.label(class="form-control-label") }}
+					{% if form.points.errors %}
+						{{ form.points(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.points.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.points(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+				<!-- equipment -->
+				<div class="form-group">
+					{{ form.equipment.label(class="form-control-label") }}
+					{% if form.equipment.errors %}
+						{{ form.equipment(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.equipment.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.equipment(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+			
+		</form>
+	</div>
+{% endblock content %}

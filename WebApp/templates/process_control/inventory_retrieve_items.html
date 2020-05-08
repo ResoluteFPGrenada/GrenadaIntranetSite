@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>Process Control Inventory - Retrieve Items</h1>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h3><strong>Item Name</strong></h3>
+			</div>
+			<div class="col-md-4">
+				<h3><strong>Retrieve Quantity</strong></h3>
+			</div>
+			<div class="col-md-4">
+				<h3><strong>Item Location</strong></h3>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for d in data%}
+			<div class="col-md-4">
+				<h3>{{d.itemName}}</h3>
+			</div>
+			<div class="col-md-4">
+				<h3>{{d.rQuantity}}</h3>
+			</div>
+			<div class="col-md-4">
+				<h3>{{d.itemLocation}}</h3>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	
+{% endblock content %}

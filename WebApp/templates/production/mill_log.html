@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block content %}
+	<script src="{{ url_for('static', filename='millLog.js') }}"></script>
+	
+	<!--<div class="container table-responsive">-->
+		<a class="btn btn-md btn-info" role="button" href="{{url_for('production.mill_log_new')}}">Create New Log</a><br /><br />
+		<!--<input type="text" id="txtId" placeholder="Search..." />-->
+		<!--<br /><br /> -->
+		<h3>Mill Logs</h3>
+		<hr />
+		<br />
+		
+		<!-- Pagination -->
+		<nav aria-label="Page navigation">
+			<ul class="pagination">
+			</ul>
+		</nav>
+		
+		<!-- Table with Mill Logs -->
+		<table style="table{border-collapse:collapse;}" class="table table-dark table-striped table-hover table-sm ">
+			<thead>
+				<tr>
+					<th><input type="text" id="searchId" placeholder="Search..." /></th>
+					<th><input type="text" id="searchUser" placeholder="Search..." /></th>
+					<th><input type="text" id="searchDateFrom" placeholder="Search From..." /> <input type="text" id="searchDateTo" placeholder="Search To..." /></th>
+					<th><input type="text" id="searchTimeFrom" placeholder="Search From..." /> <input type="text" id="searchTimeTo" placeholder="Search To..." /></th>
+					<th><input type="text" id="searchSupervisor" placeholder="Search..." /></th>
+					<th><input type="text" id="searchEventLocation" placeholder="Search..." /></th>
+					<th><input type="text" id="searchEventType" placeholder="Search..." /></th>
+					<th><input type="text" id="searchComment" placeholder="Search..." /></th>
+				</tr>
+				<tr>
+					<th>Id</th>
+					<th>User</th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Supervisor</th>
+					<th>Event Location</th>
+					<th>Event Type</th>
+					<th>Comment</th>
+					{% if current_user.is_authenticated %}
+						<th>Update</th>
+						{% if current_user.is_admin or production.rights %}
+							<th>Delete</th>
+						{% endif %}
+					{% endif %}
+				</tr>
+				
+			</thead>
+			<tbody id="tblLogs">
+				{% for log in logs | sort(attribute= 'date', reverse = True) %}
+				<tr>
+					<td>{{log.id}}</td>
+					<td>{{log.user}}</td>
+					<td>{{log.date}}</td>
+					<td>{{log.time}}</td>
+					<td>{{log.supervisor}}</td>
+					<td>{{log.location}}</td>
+					<td>{{log.type}}</td>
+					<td>{{log.comment}}</td>
+					{% if current_user.is_admin or current_user.username == log.user %}
+						<td><a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('production.mill_log_update', log_id = log.id)}}">Update</a></td>
+						{% if current_user.is_admin or production.rights %}
+							<td><button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal{{log.id}}">Delete</button></td>
+						{% endif %}
+					{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		
+		
+		
+		{% for log in logs %}
+			<div class="modal fade" id="deleteModal{{log.id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModallabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="header">
+							<h5 class="modal-title" id="deleteModallabel{{log.id}}">Delete Link</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<form action="{{ url_for('production.mill_log_delete', log_id=log.id) }}" method="POST">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		
+	<!--</div>-->
+{% endblock content %}

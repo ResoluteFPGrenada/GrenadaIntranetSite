@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> Update Role </legend>
+
+					<!-- Group name -->
+				<div class="form-group">
+					{{ form.group.label(class="form-control-label") }}
+					{% if form.group.errors %}
+						{{ form.group(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.group.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.group(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- Group description -->
+				<div class="form-group">
+					{{ form.description.label(class="form-control-label") }}
+					{% if form.description.errors %}
+						{{ form.description(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.description.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.description(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+
+				
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+			<small class="text-muted ml-2">
+				<a href="{{ url_for('admin.new_roles') }}">Create New Role</a>
+			</small>
+			
+		</form>
+	</div>
+	
+	<script>
+			// Update select options
+		let group_select = document.getElementById('group');
+		let description_text = document.getElementById('description');
+		
+		group_select.onchange = function(){
+			group_id = group_select.value;
+			
+			fetch('/roles_group/' + group_id).then(function(response){
+				response.json().then(function(data){
+					console.table(data);
+					
+					var description = data.description;
+					description_text.innerHTML = description;
+				});
+			});
+		}
+	</script>
+
+{% endblock content %}

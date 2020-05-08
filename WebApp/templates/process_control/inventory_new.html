@@ -1,0 +1,235 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>Process Control Inventory - {{legend}}</h1>
+	
+	<div class="container">
+		<form method="POST" action="", enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }} </legend>
+
+					<!-- item_name -->
+				<div class="form-group">
+					{{ form.item_name.label(class="form-control-label") }}
+					{% if form.item_name.errors %}
+						{{ form.item_name(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.item_name.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.item_name(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- location_id -->
+				<div class="form-group">
+					{{ form.location_id.label(class="form-control-label") }}
+					<!--{{ form.location_id(disabled=True) }}-->
+					{% if form.location_id.errors %}
+						{{ form.location_id(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.location_id.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{%if legend == "Update Item"%}
+							{{ form.location_id( class="form-control form-control-lg") }}
+						{% else %}
+							{{ form.location_id( disabled=True, class="form-control form-control-lg") }}
+						{% endif %}
+					{% endif %}
+				</div>
+				
+				<!-- quantity -->
+				<div class="form-group">
+					{{ form.quantity.label(class="form-control-label") }}
+					{% if form.quantity.errors %}
+						{{ form.quantity(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.quantity.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.quantity(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- manufacturer -->
+				<div class="form-group">
+					{{ form.manufacturer.label(class="form-control-label") }}
+					{% if form.manufacturer.errors %}
+						{{ form.manufacturer(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.manufacturer.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{%if legend == "Update Item"%}
+							{{ form.manufacturer( class="form-control form-control-lg") }}
+						{% else %}
+							{{ form.manufacturer( disabled=True, class="form-control form-control-lg") }}
+						{% endif %}
+					{% endif %}
+				</div>
+				
+				<!-- model -->
+				<div class="form-group">
+					{{ form.model.label(class="form-control-label") }}
+					{% if form.model.errors %}
+						{{ form.model(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.model.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.model(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- picture -->
+				<div class="form-group">
+					{{ form.picture.label(class="form-control-label") }}
+					{% if form.picture.errors %}
+						{{ form.picture(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.picture.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.picture(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- part_number -->
+				<div class="form-group">
+					{{ form.part_number.label(class="form-control-label") }}
+					{% if form.part_number.errors %}
+						{{ form.part_number(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.part_number.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.part_number(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- serial_number -->
+				<div class="form-group">
+					{{ form.serial_number.label(class="form-control-label") }}
+					{% if form.serial_number.errors %}
+						{{ form.serial_number(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.serial_number.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.serial_number(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- details -->
+				<div class="form-group">
+					{{ form.details.label(class="form-control-label") }}
+					{% if form.details.errors %}
+						{{ form.details(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.details.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.details(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- category -->
+				<div class="form-group">
+					{{ form.category.label(class="form-control-label") }}
+					{% if form.category.errors %}
+						{{ form.category(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.category.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.category(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- refItem -->
+				<div class="form-group">
+					{{ form.refItem.label(class="form-control-label") }}
+					{% if form.refItem.errors %}
+						{{ form.refItem(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.refItem.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.refItem(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- vendor -->
+				<div class="form-group">
+					{{ form.vendor.label(class="form-control-label") }}
+					{% if form.vendor.errors %}
+						{{ form.vendor(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.vendor.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.vendor(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- sap_id -->
+				<div class="form-group">
+					{{ form.sap_id.label(class="form-control-label") }}
+					{% if form.sap_id.errors %}
+						{{ form.sap_id(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.sap_id.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.sap_id(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- last_cost -->
+				<div class="form-group">
+					{{ form.last_cost.label(class="form-control-label") }}
+					{% if form.last_cost.errors %}
+						{{ form.last_cost(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.last_cost.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.last_cost(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+			</fieldset>
+				<!-- submit -->
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+{% endblock content %}

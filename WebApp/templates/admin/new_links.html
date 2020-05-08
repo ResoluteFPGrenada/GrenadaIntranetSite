@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottm mb-4"> {{ legend }} </legend>
+
+					<!-- Link name -->
+				<div class="form-group">
+					{{ form.linkname.label(class="form-control-label") }}
+					{% if form.linkname.errors %}
+						{{ form.linkname(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.linkname.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.linkname(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+					<!-- Link URL -->
+				<div class="form-group">
+					{{ form.url.label(class="form-control-label") }}
+					{% if form.url.errors %}
+						{{ form.url(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.url.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.url(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				
+				<!-- Link Group -->
+				<div class="form-group">
+					{{ form.group.label(class="form-control-label") }}
+					{% if form.group.errors %}
+						{{ form.group(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.group.errors %}
+								<span> {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.group(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+
+
+				
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+			
+		</form>
+	</div>
+{% endblock content %}
