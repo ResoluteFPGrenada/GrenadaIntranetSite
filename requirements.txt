@@ -25,5 +25,5 @@ SQLAlchemy==1.2.18
 urllib3==1.25.8
 virtualenv==16.4.3
 waitress==1.4.3
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.2.1
