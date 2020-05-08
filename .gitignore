@@ -5,7 +5,8 @@ __pycache__/
 
 
 # Database
-*.db
+databases/*.db
+Thumbs.db
 
 # C extensions
 *.so
