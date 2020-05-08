@@ -6,11 +6,14 @@ PREREQUISITES:
 
 	3. install git (needs the path addded so script can activate git by using keyword "git" in command line).
 
+	4. make sure Powershell's executionPolicy is set to something that allows running of powershell scripts.
+
 SETUP INSTRUCTIONS:
 	
-	1. place setup.ps1 in a folder where the project should be created at.
+	1. place setup.ps1 in a folder where the project should be created at. The setup file will create a project folder at the same location.
+		example: setup file is located at C:\users\user\desktop Then, the created project folder will be at C:\users\user\desktop\PROJECTNAME
 
-	2. run setup.ps1
+	2. run setup.ps1 as an admin
 
 	3. create scheduled task to run python manage.py runserver prod (recommended to run on startup).
 
