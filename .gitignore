@@ -5,7 +5,7 @@ __pycache__/
 
 
 # Database
-databases/*.db
+databases/
 Thumbs.db
 
 # C extensions
