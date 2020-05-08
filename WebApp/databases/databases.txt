@@ -1,0 +1,1 @@
+This folder is where all databases for the webapps should be placed.
